@@ -10,6 +10,6 @@ int main(int argc, char** argv)
     Graph* graph = DataReader::readFile();
     graph->showMatrix();
     BruteForce* brute = new BruteForce(graph);
-    brute->findSolution();
+    cout << brute->findSolution();
     return 0;
 }

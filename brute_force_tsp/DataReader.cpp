@@ -17,9 +17,9 @@ DataReader::~DataReader()
 Graph* DataReader::readFile()                                                               // typ definiuje rodzaj grafu (nie)skierowany
 {
     Graph* graph = new Graph();
-    int initialTab[4];                                                                      // tablica reprezentuje 4 parametry pliku
     int z = 0;
-    int p,k,w;                                                                              // kolejne informacje o wczytywanej krawêdzi
+    int size = 0;
+    int x, y;                                                                              // kolejne informacje o wczytywanym punkcie
     string fileName = readName();
     fileName = fileName + ".txt";
 
@@ -28,7 +28,7 @@ Graph* DataReader::readFile()                                                   
 
     if (fileData.good())
     {
-        fileData >> initialTab[0] >> initialTab[1] >> initialTab[2] >> initialTab[3];       // wczytywanie 4 pierwszych liczb które s¹ parametrami
+        fileData >> size;
         graph = new Graph(initialTab);                                                      // tworzenie grafu o zadanych parametrach
 
         int** tab = new int*[initialTab[1]];

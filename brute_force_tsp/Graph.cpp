@@ -9,17 +9,13 @@ Graph::Graph()
 {
 	edgeNumber = 0;
 	vertexNumber = 0;
-	firstVertex = 0;
-	lastVertex = 0;
 	matrix = nullptr;
 }
 
-Graph::Graph(int* initialTab)																// konstruktor incializujący parametry
+Graph::Graph(int edgeNumber)																// konstruktor incializujący parametry
 {
-	this->edgeNumber = initialTab[0];
-	this->vertexNumber = initialTab[1];
-	this->firstVertex = initialTab[2];
-	this->lastVertex = initialTab[3];
+	this->edgeNumber = edgeNumber;
+	this->vertexNumber = (edgeNumber * (edgeNumber - 1)) / 2;
 	matrix = nullptr;
 }
 
@@ -81,6 +77,10 @@ int** Graph::getGraphMatrix()
 int Graph::getSize()
 {
 	return vertexNumber;
+}
+
+void Graph::calcCords()
+{
 }
 
 void Graph::clearMatrix()
