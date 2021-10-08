@@ -3,7 +3,10 @@
 class BruteForce
 {
 public:
-    BruteForce();
+    BruteForce(Graph* graph);
     virtual ~BruteForce();
-    static void findSolution(Graph* graph);      //wczytuje nazwe pliku
+    int findSolution();      //wczytuje nazwe pliku
+private:
+    int** matrix;						        //macierz s¹siedztwa
+    int size;
 };

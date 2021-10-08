@@ -83,11 +83,6 @@ int Graph::getSize()
 	return vertexNumber;
 }
 
-int Graph::getFirst()
-{
-	return firstVertex;
-}
-
 void Graph::clearMatrix()
 {
 	delete[] matrix;

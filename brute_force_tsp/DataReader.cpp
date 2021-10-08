@@ -14,7 +14,7 @@ DataReader::~DataReader()
 {
 }
 
-Graph* DataReader::readFile(int type)                                                      // typ definiuje rodzaj grafu (nie)skierowany
+Graph* DataReader::readFile()                                                               // typ definiuje rodzaj grafu (nie)skierowany
 {
     Graph* graph = new Graph();
     int initialTab[4];                                                                      // tablica reprezentuje 4 parametry pliku
@@ -42,8 +42,7 @@ Graph* DataReader::readFile(int type)                                           
         {
             fileData >> p >> k >> w;
             tab[p][k] = w;
-            if(type == 1)                                                                   // powtarzanie krawêdzi dla grafów nieskierowanych
-                tab[k][p] = w;
+            tab[k][p] = w;
             z++;
         }
 

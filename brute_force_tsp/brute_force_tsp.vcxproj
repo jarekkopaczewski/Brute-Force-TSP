@@ -22,14 +22,12 @@
     <ClInclude Include="BruteForce.h" />
     <ClInclude Include="DataReader.h" />
     <ClInclude Include="Graph.h" />
-    <ClInclude Include="Menu.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BruteForce.cpp" />
     <ClCompile Include="DataReader.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
