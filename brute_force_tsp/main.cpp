@@ -2,16 +2,14 @@
 #include <iostream>
 #include "BruteForce.h"
 #include "DataReader.h"
+#include "Test.h"
+#include <iomanip>
 using namespace std;
 
 int main(int argc, char** argv)
 {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
-    Graph* graph = DataReader::readFile();
-    graph->showMatrix();
-    BruteForce* brute = new BruteForce(graph);
-    system("cls");
-    cout << "Rozpoczeto szukanie optymalnej drogi...";
-    cout << "Optymalna droga ma dlugosc:" << brute->findSolution();
+    /*Graph* graph = DataReader::readFile(nullptr);
+    graph->showMatrix();*/
+    Test::runTest();
     return 0;
 }

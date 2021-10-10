@@ -14,12 +14,21 @@ DataReader::~DataReader()
 {
 }
 
-Graph* DataReader::readFile()                                                               // typ definiuje rodzaj grafu (nie)skierowany
+Graph* DataReader::readFile(string* name)                                                               // typ definiuje rodzaj grafu (nie)skierowany
 {
     Graph* graph = new Graph();
     int size = 0;
-    string fileName = readName();
-    fileName = fileName + ".txt";
+    std::string fileName = "";
+
+    if (name == nullptr)
+    {
+        fileName = readName();
+        fileName = fileName + ".txt";
+    }
+    else
+    {
+        fileName = *name + ".txt";
+    }
 
     fstream fileData;
     fileData.open(fileName, fstream::in);
@@ -51,12 +60,43 @@ Graph* DataReader::readFile()                                                   
     return graph;
 }
 
+std::string* DataReader::readFileNames()
+{
+    int size = 0;
+    string* fileNames = nullptr;
+
+    std::string fileName = readName();
+    fileName = fileName + ".txt";
+
+    fstream fileData;
+    fileData.open(fileName, fstream::in);
+
+    if (fileData.good())
+    {
+        fileData >> size;
+        fileNames = new string[size];
+
+        for(int x = 0; x < size; x++)
+            fileData >> fileNames[x];
+    }
+    else
+    {
+        cout << "Blad pliku!" << endl;
+        cout << "Plik nie zostal wczytany." << endl;
+        cout << "\nWcisnij dowolny klawisz..." << endl;
+        int znak = _getch();
+    }
+
+    fileData.close();
+    return fileNames;
+}
+
 string DataReader::readName()
 {
     string temp;
     do
     {
-        cout << "Podaj nazwe pliku z ktorego chcesz wczytac dane:" << endl;
+        cout << "Podaj nazwe pliku konfiguracyjnego z ktorego chcesz skorzystac: ";
         cin >> temp;
 
         if (sizeof(temp) == 0)
