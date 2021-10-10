@@ -15,4 +15,6 @@ class Graph
 		int	edgeNumber;						//iloœæ krawêdzi
 		int vertexNumber;
 		void clearMatrix();					//usuwanie tablicy -> u¿ywane przez destruktor
+		int* calcSpaces();					//oblicza odstepy potrzebne do rownego wyswietlenia macierzy
+		int calcLength(int);
 };

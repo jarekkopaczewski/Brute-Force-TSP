@@ -12,10 +12,10 @@ Graph::Graph()
 	matrix = nullptr;
 }
 
-Graph::Graph(int edgeNumber)																// konstruktor incializujący parametry
+Graph::Graph(int vertexNumber)																// konstruktor incializujący parametry
 {
-	this->edgeNumber = edgeNumber;
-	this->vertexNumber = (edgeNumber * (edgeNumber - 1)) / 2;
+	this->vertexNumber = vertexNumber;
+	this->edgeNumber = (vertexNumber * (vertexNumber - 1)) / 2;
 	matrix = nullptr;
 }
 
@@ -38,27 +38,34 @@ void Graph::showMatrix()																	// wyświetlanie tablicy
 {
 	cout << endl;
 	cout << "\t\t\t\t\t    ";
+	int* spaces = calcSpaces();
 
 	for (int k = 0; k < vertexNumber; k++)
 	{
-		cout << k << " ";
+		if( k <= 9)
+			cout << k << "  ";
+		else
+			cout << k << " ";
+		for (int z = 0; z < spaces[k]-1; z++)
+			cout << " ";
 	}
 	cout << endl << endl;
 	for (int i = 0; i < vertexNumber; i++)
 	{
 		cout << "\t\t\t\t\t";
-		cout << i << "   ";
+		if( i <= 9)
+			cout << i << "   ";
+		else
+			cout << i << "  ";
 		for (int j = 0; j < vertexNumber; j++)
 		{
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
-			if(matrix[i][j] != 2147483647)
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+			cout << matrix[i][j];
+			if (j != vertexNumber - 1)
 			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-				cout << matrix[i][j] << " ";
-			}
-			else
-			{
-				cout << "- ";
+				int val = spaces[j] + (spaces[j] - calcLength(matrix[i][j]));
+				for (int z = 0; z < val; z++)
+					cout << " ";
 			}
 		}
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
@@ -86,6 +93,38 @@ void Graph::calcCords()
 void Graph::clearMatrix()
 {
 	delete[] matrix;
+}
+
+int* Graph::calcSpaces()
+{
+	int currentLongest = 1;
+	int* spaces = new int[vertexNumber];
+	for(int i = 0; i < vertexNumber; i++)
+	{
+		currentLongest = 1;
+		for (int j = 0; j < vertexNumber; j++)
+		{
+			int temp = calcLength(matrix[j][i]);
+			if (temp > currentLongest)
+			{
+				currentLongest = temp;
+			}
+		}
+		spaces[i] = currentLongest;
+	}
+	return spaces;
+}
+
+int Graph::calcLength(int value)
+{
+	int result = 0;
+	if (value < 0) result++;
+	while(value > 0)
+	{
+		value /= 10;
+		result++;
+	}
+	return result;
 }
 
 

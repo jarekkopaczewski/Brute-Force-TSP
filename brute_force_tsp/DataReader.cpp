@@ -17,9 +17,7 @@ DataReader::~DataReader()
 Graph* DataReader::readFile()                                                               // typ definiuje rodzaj grafu (nie)skierowany
 {
     Graph* graph = new Graph();
-    int z = 0;
     int size = 0;
-    int x, y;                                                                              // kolejne informacje o wczytywanym punkcie
     string fileName = readName();
     fileName = fileName + ".txt";
 
@@ -29,22 +27,18 @@ Graph* DataReader::readFile()                                                   
     if (fileData.good())
     {
         fileData >> size;
-        graph = new Graph(initialTab);                                                      // tworzenie grafu o zadanych parametrach
+        graph = new Graph(size);                                                      // tworzenie grafu o zadanych parametrach
+        int** tab = new int*[size];
 
-        int** tab = new int*[in];
-
-        while (z < initialTab[0])                                                           // wczytywanie iloœæ wierzcho³ków zadan¹ w pliku
+        for (int i = 0; i < size; i++)
         {
-            fileData >> p >> k >> w;
-            tab[p][k] = w;
-            tab[k][p] = w;
-            z++;
+            tab[i] = new int[size];
+            for (int j = 0; j < size; j++)
+            {
+                fileData >> tab[i][j];
+            }
         }
-
         graph->setMatrix(tab);                                                              // ustawienie wczytanej macierzy w grafie
-        cout << "Plik zostal wczytany." << endl;
-        cout << "\nWcisnij dowolny klawisz..." << endl;
-        int znak = _getch();
     }
     else
     {

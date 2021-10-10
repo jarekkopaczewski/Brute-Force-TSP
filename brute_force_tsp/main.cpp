@@ -10,6 +10,8 @@ int main(int argc, char** argv)
     Graph* graph = DataReader::readFile();
     graph->showMatrix();
     BruteForce* brute = new BruteForce(graph);
-    cout << brute->findSolution();
+    system("cls");
+    cout << "Rozpoczeto szukanie optymalnej drogi...";
+    cout << "Optymalna droga ma dlugosc:" << brute->findSolution();
     return 0;
 }

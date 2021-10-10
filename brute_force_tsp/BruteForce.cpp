@@ -35,7 +35,7 @@ int BruteForce::findSolution()
         int j = source;
         for (int i = 0; i < n; i++)
         {
-            cout << j;
+            //cout << j;
             path_weight += matrix[j][nodes[i]];
             j = nodes[i];
         }
