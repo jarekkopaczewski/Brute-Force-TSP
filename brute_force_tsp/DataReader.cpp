@@ -31,12 +31,7 @@ Graph* DataReader::readFile()                                                   
         fileData >> size;
         graph = new Graph(initialTab);                                                      // tworzenie grafu o zadanych parametrach
 
-        int** tab = new int*[initialTab[1]];
-        for (int i = 0; i < initialTab[1]; i++)                                             // utworzenie tablicy reprezentuj¹cej macierz
-        {
-            tab[i] = new int[initialTab[1]]{ NULL };
-            fill_n(tab[i], initialTab[1], numeric_limits<int>::max());                      // maksymalna wartoœæ int reprezentuje nieskonczonoœæ
-        }
+        int** tab = new int*[in];
 
         while (z < initialTab[0])                                                           // wczytywanie iloœæ wierzcho³ków zadan¹ w pliku
         {
