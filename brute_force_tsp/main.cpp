@@ -8,8 +8,6 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    /*Graph* graph = DataReader::readFile(nullptr);
-    graph->showMatrix();*/
     Test::runTest();
     return 0;
 }
