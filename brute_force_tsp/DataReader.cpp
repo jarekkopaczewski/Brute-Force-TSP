@@ -77,7 +77,7 @@ pair<string, int>* DataReader::readFileNames()
     {
         fileData >> temp2;
         fileData >> size;
-        init = new pair<string, int>[size+1];
+        init = new pair<string, int>[size];
         init[0] = make_pair(temp2, size);
 
         for (int x = 1; x < size; x++)
@@ -87,6 +87,7 @@ pair<string, int>* DataReader::readFileNames()
             fileData >> temp2;
             fileData >> temp;
             init[x] = make_pair(temp2, temp);
+            cout << init[x].first << ", " << init[x].second << endl;
         }
     }
     else
@@ -95,6 +96,7 @@ pair<string, int>* DataReader::readFileNames()
         cout << "Plik nie zostal wczytany." << endl;
         cout << "\nWcisnij dowolny klawisz..." << endl;
         int znak = _getch();
+        return nullptr;
     }
 
     fileData.close();
@@ -106,7 +108,7 @@ string DataReader::readName()
     string temp;
     do
     {
-        cout << "Podaj nazwe pliku konfiguracyjnego z ktorego chcesz skorzystac: ";
+        cout << "Nazwa pliku konfiguracyjnego: ";
         cin >> temp;
 
         if (sizeof(temp) == 0)

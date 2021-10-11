@@ -1,4 +1,4 @@
-output 4
+output 5
 tsp_6_1 100
 tsp_6_2 100
 tsp_10 50
