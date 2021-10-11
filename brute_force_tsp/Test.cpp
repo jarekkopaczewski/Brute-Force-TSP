@@ -5,6 +5,7 @@
 #include "DataReader.h"
 #include "Graph.h"
 #include <iomanip>
+#include <fstream>
 using namespace std;
 
 void Test::runTest()
@@ -15,20 +16,21 @@ void Test::runTest()
     QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
     system("cls");
 
-    cout << "Podaj ilosc testow do sredniej: ";
-    cin >> nmbrOfTests;
+    pair<string, int>* initValues = DataReader::readFileNames();
+    int numberOfFiles = initValues[0].second;
+    string outputName = initValues[0].first + ".csv";
 
-    string* fileNames = DataReader::readFileNames();
-    int numberOfFiles = sizeof(fileNames)/2;
+    ofstream  outputFile;
+    outputFile.open(outputName);
 
     cout << "Rozpoczeto szukanie optymalnej drogi..." << endl;
 
     for (int k = 0; k < numberOfFiles; k++)
     {
         sum = 0;
-        graph = DataReader::readFile(&fileNames[k]);
-        cout << "================ " << fileNames[k] << "================ " << endl << endl;
-        for (int i = 0; i < nmbrOfTests; i++)
+        graph = DataReader::readFile(&(initValues[k].first));
+        cout << "================ " << initValues[k].first << "================ " << endl << endl;
+        for (int i = 0; i < initValues[k].second; i++)
         {
             start = read_QPC();
             result = BruteForce::findSolution(graph);
@@ -39,7 +41,10 @@ void Test::runTest()
         cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(nmbrOfTests) << endl;
         cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(nmbrOfTests) << endl;
         cout << "Sredni czas operacji [s] = " << setprecision(3) << sum / 100.0 / 1000000.0 / float(nmbrOfTests) << endl << endl;
+        outputFile << initValues[k].first << "," << sum / 100.0 / 1000.0 / float(nmbrOfTests) << "," << setprecision(3) << sum / 100.0 / 1000000.0 / float(nmbrOfTests) << "\n";
     }
+    outputFile << "semi;colon";
+    outputFile.close();
 }
 
 long long int Test::read_QPC()

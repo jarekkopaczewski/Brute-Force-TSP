@@ -60,10 +60,12 @@ Graph* DataReader::readFile(string* name)                                       
     return graph;
 }
 
-std::string* DataReader::readFileNames()
+pair<string, int>* DataReader::readFileNames()
 {
     int size = 0;
-    string* fileNames = nullptr;
+    int temp = 0;
+    string temp2 = "";
+    pair<string, int>* init = nullptr;
 
     std::string fileName = readName();
     fileName = fileName + ".txt";
@@ -73,11 +75,19 @@ std::string* DataReader::readFileNames()
 
     if (fileData.good())
     {
+        fileData >> temp2;
         fileData >> size;
-        fileNames = new string[size];
+        init = new pair<string, int>[size+1];
+        init[0] = make_pair(temp2, size);
 
-        for(int x = 0; x < size; x++)
-            fileData >> fileNames[x];
+        for (int x = 1; x < size; x++)
+        {
+            temp = 0;
+            temp2 = "";
+            fileData >> temp2;
+            fileData >> temp;
+            init[x] = make_pair(temp2, temp);
+        }
     }
     else
     {
@@ -88,7 +98,7 @@ std::string* DataReader::readFileNames()
     }
 
     fileData.close();
-    return fileNames;
+    return init;
 }
 
 string DataReader::readName()
