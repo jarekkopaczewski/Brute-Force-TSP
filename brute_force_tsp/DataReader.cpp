@@ -6,14 +6,6 @@
 #include <conio.h>
 using namespace std;
 
-DataReader::DataReader()
-{
-}
-
-DataReader::~DataReader()
-{
-}
-
 Graph* DataReader::readFile(string* name)                                                               // typ definiuje rodzaj grafu (nie)skierowany
 {
     Graph* graph = new Graph();
@@ -98,7 +90,6 @@ pair<string, int>* DataReader::readFileNames()
         int znak = _getch();
         return nullptr;
     }
-
     fileData.close();
     return init;
 }
@@ -110,12 +101,7 @@ string DataReader::readName()
     {
         cout << "Nazwa pliku konfiguracyjnego: ";
         cin >> temp;
-
-        if (sizeof(temp) == 0)
-        {
-            cout << "Nazwa pliku nie moze byc pusta!" << endl;
-        }
-
+        if (sizeof(temp) == 0) cout << "Nazwa pliku nie moze byc pusta!" << endl;
     } while (sizeof(temp) == 0);
     return temp;
 }

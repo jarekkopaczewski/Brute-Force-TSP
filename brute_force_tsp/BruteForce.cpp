@@ -5,14 +5,6 @@
 #include <iostream>
 using namespace std;
 
-BruteForce::BruteForce()
-{
-}
-
-BruteForce::~BruteForce()
-{
-}
-
 int BruteForce::findSolution(Graph* graph)
 {
     int size = graph->getSize();
@@ -41,6 +33,5 @@ int BruteForce::findSolution(Graph* graph)
         path_weight += matrix[j][source];
         shortest_path = min(shortest_path, path_weight);
     }while (next_permutation(nodes.begin(), nodes.end()));
-
     return shortest_path;
 } 

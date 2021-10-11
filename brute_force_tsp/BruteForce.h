@@ -1,9 +1,8 @@
+#pragma once
 #include "Graph.h"
 
-class BruteForce
+static class BruteForce
 {
 public:
-    BruteForce();
-    virtual ~BruteForce();
-    static int findSolution(Graph* graph);      //wczytuje nazwe pliku
+    static int findSolution(Graph* graph);
 };

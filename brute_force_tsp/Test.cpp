@@ -10,24 +10,22 @@ using namespace std;
 
 void Test::runTest()
 {
+    system("cls");
     Graph* graph = new Graph();
     long long int frequency, start = 0, elapsed, result = 0, sum;
     int nmbrOfTests = 1;
     QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
-    system("cls");
-
     pair<string, int>* initValues = DataReader::readFileNames();
+    int numberOfFiles = initValues[0].second;
+    string outputName = initValues[0].first + ".csv";
+
     if (initValues == nullptr)
     {
         cout << "Program konczy prace." << endl;
         return;
     }
-    int numberOfFiles = initValues[0].second;
-    string outputName = initValues[0].first + ".csv";
-
     ofstream  outputFile;
     outputFile.open(outputName);
-
     outputFile << "Nazwa pliku,czas[ms],czas[s],ilosc testow\n";
     cout << "Rozpoczeto szukanie optymalnej drogi..." << endl;
 
@@ -35,8 +33,10 @@ void Test::runTest()
     {
         sum = 0;
         graph = DataReader::readFile(&(initValues[k].first));
+        graph->showMatrix();
         cout << endl << "================ " << initValues[k].first << " ================ " << endl;
         cout << "================ Liczba testow " << initValues[k].second << " ================ " << endl << endl;
+
         for (int i = 0; i < initValues[k].second; i++)
         {
             start = read_QPC();
@@ -44,6 +44,7 @@ void Test::runTest()
             elapsed = read_QPC() - start;
             sum += elapsed;
         }
+
         cout << "Optymalna droga ma dlugosc: " << result << endl;
         cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(nmbrOfTests) << endl;
         cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(nmbrOfTests) << endl;

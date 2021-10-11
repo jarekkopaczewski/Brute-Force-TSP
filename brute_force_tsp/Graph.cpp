@@ -72,8 +72,9 @@ void Graph::showMatrix()																	// wyświetlanie tablicy
 		cout << endl;
 	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
-	cout << "\nWcisnij dowolny klawisz..." << endl;
-	int znak = _getch();
+	cout << "\n\n";
+	/*cout << "\nWcisnij dowolny klawisz..." << endl;
+	int znak = _getch();*/
 }
 
 int** Graph::getGraphMatrix()
@@ -84,10 +85,6 @@ int** Graph::getGraphMatrix()
 int Graph::getSize()
 {
 	return vertexNumber;
-}
-
-void Graph::calcCords()
-{
 }
 
 void Graph::clearMatrix()

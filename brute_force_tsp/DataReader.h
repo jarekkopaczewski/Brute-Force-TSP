@@ -1,14 +1,13 @@
+#pragma once
 #include <string>
 #include "Graph.h"
 #include <string>
 using namespace std;
 
-class DataReader
+static class DataReader
 {
-    public:
-        DataReader();
-        virtual ~DataReader();                         
-        static Graph* readFile(std::string*);           //wczytuje plik -> parametr to rodzaj grafu
+    public:                        
+        static Graph* readFile(std::string*);       
         static pair<string, int>* readFileNames();
-        static std::string readName();      //wczytuje nazwe pliku
+        static std::string readName();
 };

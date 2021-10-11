@@ -9,7 +9,6 @@ class Graph
 		void showMatrix();					//wyswietlanie macierzy
 		int** getGraphMatrix();				//zwraca macierz
 		int getSize();						//zwraca wielkosc - iloœæ wierzcho³ków
-		void calcCords();					//oblicz macierz na podstawie wspó³rzêdnych punktów
 	private:
 		int** matrix;						//macierz s¹siedztwa
 		int	edgeNumber;						//iloœæ krawêdzi
