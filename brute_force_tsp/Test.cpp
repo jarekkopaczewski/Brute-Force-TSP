@@ -16,14 +16,16 @@ void Test::runTest()
     int nmbrOfTests = 1;
     QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
     pair<string, int>* initValues = DataReader::readFileNames();
-    int numberOfFiles = initValues[0].second;
-    string outputName = initValues[0].first + ".csv";
 
     if (initValues == nullptr)
     {
         cout << "Program konczy prace." << endl;
         return;
     }
+
+    int numberOfFiles = initValues[0].second;
+    string outputName = initValues[0].first + ".csv";
+
     ofstream  outputFile;
     outputFile.open(outputName);
     outputFile << "Nazwa pliku,czas[ms],czas[s],ilosc testow\n";
@@ -43,13 +45,14 @@ void Test::runTest()
             result = BruteForce::findSolution(graph);
             elapsed = read_QPC() - start;
             sum += elapsed;
+            cout << elapsed << endl;
         }
 
         cout << "Optymalna droga ma dlugosc: " << result << endl;
-        cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(nmbrOfTests) << endl;
-        cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(nmbrOfTests) << endl;
-        cout << "Sredni czas operacji [s] = " << setprecision(3) << sum / 100.0 / 1000000.0 / float(nmbrOfTests) << endl << endl;
-        outputFile << initValues[k].first << "," << sum / 100.0 / 1000.0 / float(nmbrOfTests) << "," << setprecision(3) << sum / 100.0 / 1000000.0 / float(nmbrOfTests) << "," << initValues[k].second << "\n";
+        cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(initValues[k].second) << endl;
+        cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(initValues[k].second) << endl;
+        cout << "Sredni czas operacji [s] = " << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].second) << endl << endl;
+        outputFile << initValues[k].first << "," << sum / 100.0 / 1000.0 / float(initValues[k].second) << "," << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].second) << "," << initValues[k].second << "\n";
     }
     outputFile.close();
     cout << "Wyniki zapisano do: " << outputName << endl << endl;

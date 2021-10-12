@@ -1,5 +1,9 @@
--show 5
-tsp_6_1 100
-tsp_6_2 100
-tsp_10 50
-tsp_12 20
+out 9
+tsp_6_1 1
+tsp_6_2 1
+tsp_10 1
+tsp_12 1
+tsp_13 1
+tsp_14 1
+tsp_15 1
+tsp_17 1
