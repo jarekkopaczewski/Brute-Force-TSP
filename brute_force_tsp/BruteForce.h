@@ -4,5 +4,5 @@
 static class BruteForce
 {
 public:
-    static int findSolution(Graph* graph);
+    static int* findSolution(Graph* graph);
 };

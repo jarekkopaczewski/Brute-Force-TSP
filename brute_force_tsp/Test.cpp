@@ -12,7 +12,8 @@ void Test::runTest()
 {
     system("cls");
     Graph* graph = new Graph();
-    long long int frequency, start = 0, elapsed, result = 0, sum;
+    long long int frequency, start = 0, elapsed, sum;
+    int* result = new int[2];
     int nmbrOfTests = 1;
     QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
     pair<string, int>* initValues = DataReader::readFileNames();
@@ -45,10 +46,9 @@ void Test::runTest()
             result = BruteForce::findSolution(graph);
             elapsed = read_QPC() - start;
             sum += elapsed;
-            cout << elapsed << endl;
         }
 
-        cout << "Optymalna droga ma dlugosc: " << result << endl;
+        cout << "Optymalna droga ma dlugosc: " << result[0] << endl << "Ilosc iteracji: " << result[1] << endl;
         cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(initValues[k].second) << endl;
         cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(initValues[k].second) << endl;
         cout << "Sredni czas operacji [s] = " << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].second) << endl << endl;
