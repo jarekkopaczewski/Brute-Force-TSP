@@ -12,8 +12,8 @@ void Test::runTest()
 {
     system("cls");
     Graph* graph = new Graph();
-    long long int frequency, start = 0, elapsed, sum;
-    int* result = new int[2];
+    long long int frequency, start = 0, elapsed, sum, size = 0;
+    int* result = nullptr;
     int nmbrOfTests = 1;
     QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
     pair<string, int>* initValues = DataReader::readFileNames();
@@ -36,6 +36,7 @@ void Test::runTest()
     {
         sum = 0;
         graph = DataReader::readFile(&(initValues[k].first));
+        size = graph->getSize();
         graph->showMatrix();
         cout << endl << "================ " << initValues[k].first << " ================ " << endl;
         cout << "================ Liczba testow " << initValues[k].second << " ================ " << endl << endl;
@@ -48,11 +49,14 @@ void Test::runTest()
             sum += elapsed;
         }
 
-        cout << "Optymalna droga ma dlugosc: " << result[0] << endl << "Ilosc iteracji: " << result[1] << endl;
+        cout << "Optymalna droga ma dlugosc: " << result[size+1] << endl << "Ilosc iteracji: " << result[size] << endl << "Optymalna droga: ";
+        for (int o = 0; o < size; o++) cout << result[o] << " -> "; cout << result[0] << endl;
         cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(initValues[k].second) << endl;
         cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(initValues[k].second) << endl;
         cout << "Sredni czas operacji [s] = " << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].second) << endl << endl;
         outputFile << initValues[k].first << "," << sum / 100.0 / 1000.0 / float(initValues[k].second) << "," << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].second) << "," << initValues[k].second << "\n";
+        for (int o = 0; o < size; o++) outputFile << result[o] << ">"; outputFile << result[0] << "\n";
+        delete result;
     }
     outputFile.close();
     cout << "Wyniki zapisano do: " << outputName << endl << endl;

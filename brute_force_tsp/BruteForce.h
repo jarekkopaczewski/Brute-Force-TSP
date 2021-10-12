@@ -1,4 +1,3 @@
-#pragma once
 #include "Graph.h"
 
 static class BruteForce
