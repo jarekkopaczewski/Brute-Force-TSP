@@ -52,12 +52,12 @@ Graph* DataReader::readFile(string* name)                                       
     return graph;
 }
 
-pair<string, int>* DataReader::readFileNames()
+pair<int[3], string[2]>* DataReader::readFileNames()
 {
     int size = 0;
-    int temp = 0;
-    string temp2 = "";
-    pair<string, int>* init = nullptr;
+    int test = 0, solution = 0, iterations = 0;
+    string name = "", path = "";
+    pair<int[3], string[2]>* init = nullptr;
 
     std::string fileName = readName();
     fileName = fileName + ".txt";
@@ -67,19 +67,23 @@ pair<string, int>* DataReader::readFileNames()
 
     if (fileData.good())
     {
-        fileData >> temp2;
-        fileData >> size;
-        init = new pair<string, int>[size];
-        init[0] = make_pair(temp2, size);
+        fileData >> size >> solution >> iterations >> name >> path;
+        init = new pair<int[3], string[2]>[size];
+        init[0].first[0] = size;
+        init[0].first[1] = solution;
+        init[0].first[2] = iterations;
+        init[0].second[0] = name;
+        init[0].second[1] = path;
 
         for (int x = 1; x < size; x++)
         {
-            temp = 0;
-            temp2 = "";
-            fileData >> temp2;
-            fileData >> temp;
-            init[x] = make_pair(temp2, temp);
-            cout << init[x].first << ", " << init[x].second << endl;
+            fileData >> test >> solution >> iterations >> name >> path;
+            init[x].first[0] = size;
+            init[x].first[1] = solution;
+            init[x].first[2] = iterations;
+            init[x].second[0] = name;
+            init[x].second[1] = path;
+            cout << init[x].first[0] << ", " << init[x].first[1] << ", " << init[x].first[2] << ", " << init[x].second[0] << ", " << init[x].second[1] << endl;
         }
     }
     else

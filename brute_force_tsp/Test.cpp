@@ -15,8 +15,9 @@ void Test::runTest()
     long long int frequency, start = 0, elapsed, sum, size = 0;
     int* result = nullptr;
     int nmbrOfTests = 1;
+    string path = "";
     QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
-    pair<string, int>* initValues = DataReader::readFileNames();
+    pair<int[3], string[2]>* initValues = DataReader::readFileNames();
 
     if (initValues == nullptr)
     {
@@ -24,8 +25,8 @@ void Test::runTest()
         return;
     }
 
-    int numberOfFiles = initValues[0].second;
-    string outputName = initValues[0].first + ".csv";
+    int numberOfFiles = initValues[0].first[0];
+    string outputName = initValues[0].second[0] + ".csv";
 
     ofstream  outputFile;
     outputFile.open(outputName);
@@ -35,13 +36,14 @@ void Test::runTest()
     for (int k = 1; k < numberOfFiles; k++)
     {
         sum = 0;
-        graph = DataReader::readFile(&(initValues[k].first));
+        path = "";
+        graph = DataReader::readFile(&(initValues[k].second[0]));
         size = graph->getSize();
         graph->showMatrix();
-        cout << endl << "================ " << initValues[k].first << " ================ " << endl;
-        cout << "================ Liczba testow " << initValues[k].second << " ================ " << endl << endl;
+        cout << endl << "================ " << initValues[k].second[0] << " ================ " << endl;
+        cout << "================ Liczba testow " << initValues[k].first[0] << " ================ " << endl << endl;
 
-        for (int i = 0; i < initValues[k].second; i++)
+        for (int i = 0; i < initValues[k].first[0]; i++)
         {
             start = read_QPC();
             result = BruteForce::findSolution(graph);
@@ -50,12 +52,18 @@ void Test::runTest()
         }
 
         cout << "Optymalna droga ma dlugosc: " << result[size+1] << endl << "Ilosc iteracji: " << result[size] << endl << "Optymalna droga: ";
-        for (int o = 0; o < size; o++) cout << result[o] << " -> "; cout << result[0] << endl;
-        cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(initValues[k].second) << endl;
-        cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(initValues[k].second) << endl;
-        cout << "Sredni czas operacji [s] = " << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].second) << endl << endl;
-        outputFile << initValues[k].first << "," << sum / 100.0 / 1000.0 / float(initValues[k].second) << "," << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].second) << "," << initValues[k].second << "\n";
-        for (int o = 0; o < size; o++) outputFile << result[o] << ">"; outputFile << result[0] << "\n";
+        for (int o = 0; o < size; o++) 
+            path += to_string(result[o]) + "->";
+        path += to_string(result[0]);
+        cout << path << endl;
+        cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(initValues[k].first[0]) << endl;
+        cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(initValues[k].first[0]) << endl;
+        cout << "Sredni czas operacji [s] = " << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].first[0]) << endl << endl;
+        outputFile << initValues[k].first << "," << sum / 100.0 / 1000.0 / float(initValues[k].first[0]) << "," << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].first[0]) << "," << initValues[k].first[0] << ", " << path << "\n";
+        if (initValues[k].first[1] == result[size + 1] && initValues[k].first[2] == result[size] && path == initValues[k].second[1])
+            cout << "Rozwiazanie jest w pelni poprawne." << endl;
+        else
+            cout << "Rozwiazanie jest bledne." << endl;
         delete result;
     }
     outputFile.close();
