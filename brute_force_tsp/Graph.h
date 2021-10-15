@@ -12,8 +12,8 @@ class Graph
 	private:
 		int** matrix;						//macierz s¹siedztwa
 		int	edgeNumber;						//iloœæ krawêdzi
-		int vertexNumber;
+		int vertexNumber;					//iloœæ wirzcholkow
 		void clearMatrix();					//usuwanie tablicy -> u¿ywane przez destruktor
 		int* calcSpaces();					//oblicza odstepy potrzebne do rownego wyswietlenia macierzy
-		int calcLength(int);
+		int calcLength(int);				//oblicza dlugosc liczby
 };

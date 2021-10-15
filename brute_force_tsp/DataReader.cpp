@@ -6,7 +6,7 @@
 #include <conio.h>
 using namespace std;
 
-Graph* DataReader::readFile(string* name)                                                               // typ definiuje rodzaj grafu (nie)skierowany
+Graph* DataReader::readFile(string* name)                                            // typ definiuje rodzaj grafu (nie)skierowany
 {
     Graph* graph = new Graph();
     int size = 0;
@@ -39,7 +39,7 @@ Graph* DataReader::readFile(string* name)                                       
                 fileData >> tab[i][j];
             }
         }
-        graph->setMatrix(tab);                                                              // ustawienie wczytanej macierzy w grafie
+        graph->setMatrix(tab);                                                        // ustawienie wczytanej macierzy w grafie
     }
     else
     {
@@ -52,7 +52,7 @@ Graph* DataReader::readFile(string* name)                                       
     return graph;
 }
 
-pair<int[3], string[2]>* DataReader::readFileNames()
+pair<int[3], string[2]>* DataReader::readInitData()
 {
     int size = 0;
     int test = 0, solution = 0, iterations = 0;

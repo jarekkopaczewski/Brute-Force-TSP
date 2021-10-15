@@ -34,7 +34,7 @@ void Graph::setMatrix(int** matrix)															// wczytanie tablicy do grafu
 	}
 }
 
-void Graph::showMatrix()																	// wyświetlanie tablicy
+void Graph::showMatrix()																	// wyświetlanie macierzy
 {
 	cout << endl;
 	cout << "\t\t\t\t\t    ";

@@ -20,7 +20,7 @@ int* BruteForce::findSolution(Graph* graph)
     do
     {
         int currentWeight = 0, j = source;
-        currentPath[0] = j;
+        currentPath[0] = source;
         for (int i = 0; i < n; i++)
         {
             currentWeight += matrix[j][nodes[i]];                   //dodanie wartosci aktualnego przemieszczenia

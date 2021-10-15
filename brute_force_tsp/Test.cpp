@@ -10,14 +10,12 @@ using namespace std;
 
 void Test::runTest()
 {
-    system("cls");
-    Graph* graph = new Graph();
+    Graph* graph = new Graph();                              
     long long int frequency, start = 0, elapsed, sum, size = 0;
     int* result = nullptr;
     int nmbrOfTests = 1;
     string path = "";
-    QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
-    pair<int[3], string[2]>* initValues = DataReader::readFileNames();
+    pair<int[3], string[2]>* initValues = DataReader::readInitData();
 
     if (initValues == nullptr)
     {
@@ -25,21 +23,19 @@ void Test::runTest()
         return;
     }
 
+    QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
+
     int numberOfFiles = initValues[0].first[0];
     string outputName = initValues[0].second[0] + ".csv";
-
-    ofstream  outputFile;
+    ofstream outputFile;
     outputFile.open(outputName);
-    outputFile << "Nazwa pliku,czas[ms],czas[s],ilosc testow\n";
-    cout << "Rozpoczeto szukanie optymalnej drogi..." << endl;
 
     for (int k = 1; k < numberOfFiles; k++)
     {
-        sum = 0;
-        path = "";
-        graph = DataReader::readFile(&(initValues[k].second[0]));
+        sum = 0; path = ""; graph = DataReader::readFile(&(initValues[k].second[0]));
         size = graph->getSize();
         graph->showMatrix();
+
         cout << endl << "================ " << initValues[k].second[0] << " ================ " << endl;
         cout << "================ Liczba testow " << initValues[k].first[0] << " ================ " << endl << endl;
 
@@ -51,19 +47,14 @@ void Test::runTest()
             sum += elapsed;
         }
 
-        cout << "Optymalna droga ma dlugosc: " << result[size+1] << endl << "Ilosc iteracji: " << result[size] << endl << "Optymalna droga: ";
-        for (int o = 0; o < size; o++) 
-            path += to_string(result[o]) + "->";
-        path += to_string(result[0]);
-        cout << path << endl;
-        cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(initValues[k].first[0]) << endl;
-        cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(initValues[k].first[0]) << endl;
-        cout << "Sredni czas operacji [s] = " << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].first[0]) << endl << endl;
-        outputFile << initValues[k].first << "," << sum / 100.0 / 1000.0 / float(initValues[k].first[0]) << "," << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].first[0]) << "," << initValues[k].first[0] << ", " << path << "\n";
+        printResult(size,sum, initValues[k].first[0],path,result);
         if (initValues[k].first[1] == result[size + 1] && initValues[k].first[2] == result[size] && path == initValues[k].second[1])
             cout << "Rozwiazanie jest w pelni poprawne." << endl;
         else
             cout << "Rozwiazanie jest bledne." << endl;
+        outputFile << "Nazwa pliku,czas[ms],czas[s],ilosc testow\n";
+        cout << "Rozpoczeto szukanie optymalnej drogi..." << endl;
+        outputFile << initValues[k].second[0] << "," << sum / 100.0 / 1000.0 / float(sum) << "," << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].first[0]) << "," << initValues[k].first[0] << ", " << path << "\n";
         delete result;
     }
     outputFile.close();
@@ -75,4 +66,16 @@ long long int Test::read_QPC()
     LARGE_INTEGER count;
     QueryPerformanceCounter(&count);
     return((long long int)count.QuadPart);
+}
+
+void Test::printResult(int size, long long int sum, int test, string& path, int* result)
+{
+    cout << "Optymalna droga ma dlugosc: " << result[size + 1] << endl << "Ilosc iteracji: " << result[size] << endl << "Optymalna droga: ";
+    for (int o = 0; o < size; o++)
+        path += to_string(result[o]) + "->";
+    path += to_string(result[0]);
+    cout << path << endl;
+    cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(test) << endl;
+    cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(test) << endl;
+    cout << "Sredni czas operacji [s] = " << setprecision(3) << sum / 100.0 / 1000000.0 / float(test) << endl << endl;
 }
