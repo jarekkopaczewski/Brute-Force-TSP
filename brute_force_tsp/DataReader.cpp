@@ -78,7 +78,7 @@ pair<int[3], string[2]>* DataReader::readInitData()
         for (int x = 1; x < size; x++)
         {
             fileData >> test >> solution >> iterations >> name >> path;
-            init[x].first[0] = size;
+            init[x].first[0] = test;
             init[x].first[1] = solution;
             init[x].first[2] = iterations;
             init[x].second[0] = name;

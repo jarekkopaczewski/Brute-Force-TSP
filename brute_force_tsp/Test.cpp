@@ -47,14 +47,14 @@ void Test::runTest()
             sum += elapsed;
         }
 
-        printResult(size,sum, initValues[k].first[0],path,result);
+        printResult(size,sum, initValues[k].first[0],path,result, frequency);
         if (initValues[k].first[1] == result[size + 1] && initValues[k].first[2] == result[size] && path == initValues[k].second[1])
             cout << "Rozwiazanie jest w pelni poprawne." << endl;
         else
             cout << "Rozwiazanie jest bledne." << endl;
         outputFile << "Nazwa pliku,czas[ms],czas[s],ilosc testow\n";
-        cout << "Rozpoczeto szukanie optymalnej drogi..." << endl;
-        outputFile << initValues[k].second[0] << "," << sum / 100.0 / 1000.0 / float(sum) << "," << setprecision(3) << sum / 100.0 / 1000000.0 / float(initValues[k].first[0]) << "," << initValues[k].first[0] << ", " << path << "\n";
+        //cout << "Rozpoczeto szukanie optymalnej drogi..." << endl;
+        outputFile << initValues[k].second[0] << "," << float(sum) / (initValues[k].first[0]) / frequency << "," << setprecision(3) << float(sum * 1000.0) / (initValues[k].first[0]) / frequency << "," << initValues[k].first[0] << ", " << path << "\n";
         delete result;
     }
     outputFile.close();
@@ -68,14 +68,14 @@ long long int Test::read_QPC()
     return((long long int)count.QuadPart);
 }
 
-void Test::printResult(int size, long long int sum, int test, string& path, int* result)
+void Test::printResult(int size, long long int sum, int test, string& path, int* result, long long int f)
 {
     cout << "Optymalna droga ma dlugosc: " << result[size + 1] << endl << "Ilosc iteracji: " << result[size] << endl << "Optymalna droga: ";
     for (int o = 0; o < size; o++)
         path += to_string(result[o]) + "->";
     path += to_string(result[0]);
     cout << path << endl;
-    cout << "Sredni czas operacji[us] = " << setprecision(3) << sum / 100.0 / float(test) << endl;
-    cout << "Sredni czas operacji[ms] = " << setprecision(3) << sum / 100.0 / 1000.0 / float(test) << endl;
-    cout << "Sredni czas operacji [s] = " << setprecision(3) << sum / 100.0 / 1000000.0 / float(test) << endl << endl;
+    cout << "Sredni czas operacji[s] = " << setprecision(3) << float(sum / float(test))/f << endl;
+    cout << "Sredni czas operacji[ms] = " << setprecision(3) << float(sum * 1000.0)/ float(test)/f << endl;
+    cout << "Sredni czas operacji [us] = " << setprecision(3) << float(sum * 1000000.0) / float(test)/f << endl << endl;
 }
