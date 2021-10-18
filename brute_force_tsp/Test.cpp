@@ -29,6 +29,7 @@ void Test::runTest()
     string outputName = initValues[0].second[0] + ".csv";
     ofstream outputFile;
     outputFile.open(outputName);
+    outputFile << "Nazwa pliku,czas[s],czas[ms],ilosc testow\n";
 
     for (int k = 1; k < numberOfFiles; k++)
     {
@@ -52,7 +53,6 @@ void Test::runTest()
             cout << "Rozwiazanie jest w pelni poprawne." << endl;
         else
             cout << "Rozwiazanie jest bledne." << endl;
-        outputFile << "Nazwa pliku,czas[ms],czas[s],ilosc testow\n";
         //cout << "Rozpoczeto szukanie optymalnej drogi..." << endl;
         outputFile << initValues[k].second[0] << "," << float(sum) / (initValues[k].first[0]) / frequency << "," << setprecision(3) << float(sum * 1000.0) / (initValues[k].first[0]) / frequency << "," << initValues[k].first[0] << ", " << path << "\n";
         delete result;
