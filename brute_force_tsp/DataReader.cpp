@@ -103,7 +103,7 @@ string DataReader::readName()
     string temp;
     do
     {
-        cout << "Nazwa pliku konfiguracyjnego: ";
+        cout << "Nazwa pliku konfiguracyjnego(bez rozszerzenia): ";
         cin >> temp;
         if (sizeof(temp) == 0) cout << "Nazwa pliku nie moze byc pusta!" << endl;
     } while (sizeof(temp) == 0);
