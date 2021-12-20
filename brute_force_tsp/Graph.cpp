@@ -122,6 +122,7 @@ int Graph::calcLength(int value)
 		result++;
 	}
 	return result;
+
 }
 
 
