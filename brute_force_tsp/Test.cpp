@@ -78,4 +78,5 @@ void Test::printResult(int size, long long int sum, int test, string& path, int*
     cout << "Sredni czas operacji[s] = " << setprecision(3) << float(sum / float(test))/f << endl;
     cout << "Sredni czas operacji[ms] = " << setprecision(3) << float(sum * 1000.0)/ float(test)/f << endl;
     cout << "Sredni czas operacji [us] = " << setprecision(3) << float(sum * 1000000.0) / float(test)/f << endl << endl;
+
 }

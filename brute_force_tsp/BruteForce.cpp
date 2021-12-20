@@ -5,6 +5,7 @@
 #include <iostream>
 using namespace std;
 
+
 int* BruteForce::findSolution(Graph* graph)
 {
     int size = graph->getSize();
